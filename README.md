@@ -52,4 +52,7 @@ python val.py --model best.pt --data archive.yaml
 
 # 导出
 python export.py --model best.pt --format onnx
-
+python export.py --model best.pt --format engine --half
+# 监控
+python monitor.py --model best.pt --data archive.yaml --threshold 0.85 --once
+python monitor.py --model best.pt --data archive.yaml --threshold 0.85 --interval 86400
