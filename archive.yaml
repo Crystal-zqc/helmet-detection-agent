@@ -1,0 +1,6 @@
+path: ./archive
+train: images
+val: images
+
+nc: 2
+names: ['helmet', 'head']
