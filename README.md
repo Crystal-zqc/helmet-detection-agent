@@ -13,15 +13,24 @@
 | 模型导出 | 将训练好的模型导出为 ONNX / TensorRT 格式，便于边缘端部署 |
 | 模型监控 | 定期检查模型效果，低于阈值时自动触发重新训练 |
 
-## 三、技术方案
+## 三、数据集
 
-### 3.1 开发环境
+来源：Kaggle - Hardhat Vest Dataset v3  
+链接：https://www.kaggle.com/datasets/muhammetzahitaydn/hardhat-vest-dataset-v3  
+总图片数：22,141 张  
+类别：Helmet（戴安全帽）、NoHelmet（未戴帽）、Vest（穿反光衣）  
+划分：训练集 17,248 / 验证集 2,438 / 测试集 2,455（8:1:1）  
+配置文件：archive.yaml  
+
+## 四、技术方案
+
+### 4.1 开发环境
 
 - Python 3.10
 - PyTorch + CUDA 11.8
 - Ultralytics YOLO
 
-### 3.2 脚本设计
+### 4.2 脚本设计
 
 | 脚本 | 功能 | 输入 | 输出 |
 |------|------|------|------|
@@ -30,16 +39,17 @@
 | export.py | 模型导出 | 模型路径、导出格式 | ONNX / TensorRT 文件 |
 | monitor.py | 模型监控 | 模型路径、阈值 | 触发重训信号 |
 
-### 3.3 调用方式
+### 4.3 调用方式
 
 所有脚本支持命令行调用，输出 JSON 格式结果，方便 OpenClaw 解析：
 
 ```bash
 # 训练
-python train.py --data data.yaml --epochs 100 --batch 8
+python train.py --data archive.yaml --epochs 100 --batch 8
 
 # 验证
-python val.py --model best.pt --data data.yaml
+python val.py --model best.pt --data archive.yaml
 
 # 导出
 python export.py --model best.pt --format onnx
+
